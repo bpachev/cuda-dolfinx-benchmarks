@@ -57,7 +57,7 @@ def main(
             vector_jit_args["custom_assembly_src"] = load_file(vector_kernel)
         a = cufem.form(a, cuda_jit_args=matrix_jit_args, form_compiler_options={"disable_tabulate_tensors": no_quadrature})
         L = cufem.form(L, cuda_jit_args=vector_jit_args, form_compiler_options={"disable_tabulate_tensors": no_quadrature})
-        asm = cufem.CUDAAssembler()
+        asm = cufem.CUDAAssembler(debug=True, verbose=True)
         cuda_A = asm.create_matrix(a)
         cuda_b = asm.create_vector(L)
         A = cuda_A.mat
